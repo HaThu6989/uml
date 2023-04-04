@@ -1,0 +1,13 @@
+@startuml
+
+class Animal {
+- name: string
+
++__construct(name: string): void
++__toString(): string //retourne la chaîne "Mon nom est xxx"
++getName(): string||null
+}
+
+Animal <|- List
+
+@enduml

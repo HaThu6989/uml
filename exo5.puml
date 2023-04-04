@@ -1,0 +1,25 @@
+@startuml exo3
+' ----------- a ----------
+class Person {
+}
+
+class Animal {
+}
+Person "1" -- "*" Animal : > use
+
+' ----------- b ---------- 
+class Waiter {
+}
+
+class Table {
+}
+Waiter "1..*" -- "0..*" Table : > serves
+
+' ----------- c ---------- 
+class Person2 {
+}
+
+Person2 "0.. 2 parent" -- "0..* child" Person2 
+
+
+@enduml

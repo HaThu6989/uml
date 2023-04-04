@@ -1,0 +1,29 @@
+@startuml
+
+class Person {
+- id: int
+- name : string
+- dateOfBirth : Datetime
+
++setId()
++getId()
++setName( name: string):self
++getName() : string
++setDateOfBirth(dateOfBirth : Datetime): self
++getDateOfBirth(): Datetime
++getAge():int
+}
+
+
+class Enterprise {
+-corporateName: string
+-employees: Person[ ] //collection d'objets de type Person
++setCorporateName(name: string):self
++getCorporateName():string
++addEmployee(e: Person):self
++getEmployees(): array
++removeEmployee(e: Person)
++countEmployees():int
+}
+
+@enduml
