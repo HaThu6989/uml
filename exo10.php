@@ -55,8 +55,9 @@ class Vehicule {
      */
     public function setTechnicians(array $technicians): self
     {
-        $this->technicians = $technicians;
-        return $this;
+      foreach($technicians as $technician) {
+      $this->addTechnician($technician);
+      }
     }
 
     public function addTechnician(Technician $technician): self
