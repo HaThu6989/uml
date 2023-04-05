@@ -1,16 +1,29 @@
 <?php
 
 class Waiter {
-  const MAX_TABLES = 4;
-
   private array $tables=[];
+  private string $name;
+
+  public function getName(): string
+  {
+      return $this->name;
+  }
+
+  
+  public function setName(string $name): self
+  {
+      $this->name = $name;
+      return $this;
+  }
 
   public function addTable (Table $table): self
   {
-    if(count($this->tables) === self::MAX_TABLES) {
-      throw new Exception("Waiter can't have more than " . self::MAX_TABLES . " tables");
+    if(!array_search($table, $this->tables) && count($this->tables) < 4) {
+        array_push($this->tables, $table);
+        return $this;
+    } else {
+        throw new Exception('Maximum 4 tables for 1 waiter');
     }
-    array_push($this->tables, $table);
   }
   
   public function removeTable(Table $table): self
@@ -18,6 +31,7 @@ class Waiter {
     $key = array_search($table, $this->tables);
     if ($key !== false) {
         array_splice($this->tables, $key, 1);
+        return $this;
     } else {
         throw new Exception('This table is not served by this waiter.');
     }
@@ -39,7 +53,7 @@ class Waiter {
 }
 
 class Table {
-  private $waiters = [];
+  private array $waiters = [];
   
   public function getWaiters(): array
   {
@@ -58,12 +72,13 @@ class Table {
   {
       $this->waiters[] = $waiter;
       $waiter->addTable($this); 
+      array_push($this->waiters, $waiter);
       return $this;
   }
 
   public function removeWaiter(Waiter $waiter): self
   {
-      $key = array_search($Waiter, $this->waiters);
+      $key = array_search($waiter, $this->waiters);
       unset($this->waiters[$key]);
       $waiter->removeTable($this); 
       return $this;
